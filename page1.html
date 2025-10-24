@@ -448,3 +448,46 @@
       const notif = document.createElement('div');
       const colors = {info:'#4a9eff', success:'var(--accent)', error:'#ff4a4a'};
       notif.style.cssText=`position:fixed;top:20px;right
+        <div style='margin-top:20px;color:var(--muted);font-size:13px'><i class="fa-solid fa-info-circle"></i> This usually takes 3–5 minutes</div>
+      </div>`;
+      document.body.appendChild(overlay);
+
+      let progress = 0;
+      const simBar = overlay.querySelector('#simBar');
+      const simStep = overlay.querySelector('#simStep');
+      const simIcon = overlay.querySelector('#simIcon');
+
+      const interval = setInterval(()=>{
+        progress += 25;
+        simBar.style.width = progress + '%';
+        simStep.textContent = steps[i].text + '...';
+        simIcon.className = `fa-solid ${steps[i].icon}`;
+        i++;
+        if(i >= steps.length){
+          clearInterval(interval);
+          simStep.textContent = 'Video ready!';
+          simIcon.className = 'fa-solid fa-check';
+          simBar.style.width = '100%';
+          setTimeout(()=>overlay.remove(),1500);
+        }
+      }, 1000);
+    });
+
+    // Notification helper
+    function showNotification(text, type){
+      const note = document.createElement('div');
+      note.textContent = text;
+      note.style.cssText = `
+        position:fixed;bottom:20px;right:20px;
+        background:rgba(0,0,0,0.8);
+        padding:12px 20px;border-radius:10px;
+        border:1px solid rgba(255,255,255,0.1);
+        color:var(--accent);font-weight:600;
+        box-shadow:0 0 20px rgba(0,0,0,0.6);
+        z-index:99999;animation:fadeIn .4s`;
+      document.body.appendChild(note);
+      setTimeout(()=>{note.style.opacity='0';note.style.transition='opacity .6s';setTimeout(()=>note.remove(),600)},2000);
+    }
+  </script>
+</body>
+</html>
