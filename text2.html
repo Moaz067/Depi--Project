@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Text Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ffd000;
+      --background: #0a0a0a;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --text: #fff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #000, #111);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    header {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+    }
+
+    header a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    header a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      color: var(--primary);
+      font-size: 2.3rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px rgba(255, 208, 0, 0.5);
+    }
+
+    .generator-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 208, 0, 0.05);
+      width: 100%;
+      max-width: 700px;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+      background: transparent;
+      border: 2px solid var(--primary);
+      border-radius: 12px;
+      color: var(--text);
+      padding: 12px;
+      font-size: 1rem;
+      resize: none;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    textarea:focus {
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #ffd000, #ffb800);
+      border: none;
+      border-radius: 12px;
+      color: #000;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(255, 208, 0, 0.5);
+    }
+
+    .result-box {
+      margin-top: 25px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      border-left: 4px solid var(--primary);
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+      white-space: pre-wrap;
+    }
+
+    .spinner {
+      display: none;
+      margin-top: 20px;
+      border: 4px solid rgba(255,255,255,0.2);
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      animation: spin 1s linear infinite;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html">← Back to Home</a>
+  </header>
+
+  <h1>AI Text Generator</h1>
+
+  <div class="generator-card">
+    <textarea id="userInput" placeholder="Type your idea or prompt here..."></textarea>
+    <button id="generateBtn">✍️ Generate Text</button>
+    <div class="spinner" id="spinner"></div>
+    <div class="result-box" id="resultBox"></div>
+  </div>
+
+  <script>
+    const btn = document.getElementById('generateBtn');
+    const input = document.getElementById('userInput');
+    const resultBox = document.getElementById('resultBox');
+    const spinner = document.getElementById('spinner');
+
+    btn.addEventListener('click', () => {
+      const text = input.value.trim();
+      if (!text) {
+        resultBox.style.display = 'block';
+        resultBox.innerText = "Please enter a prompt first.";
+        return;
+      }
+
+      spinner.style.display = 'block';
+      resultBox.style.display = 'none';
+
+      // Simulated AI text generation
+      setTimeout(() => {
+        spinner.style.display = 'none';
+        resultBox.style.display = 'block';
+        resultBox.innerText = 
+          `✨ Generated Text for: "${text}"\n\n` +
+          `This is an AI-generated response preview. You can later connect it to your real model API.`;
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
